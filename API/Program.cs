@@ -64,7 +64,7 @@ app.UseHttpsRedirection();
 // CORS Configuration
 app.UseCors(x => x.AllowAnyHeader()
                   .AllowAnyMethod()
-                  .WithOrigins("http://localhost:4200"));  // Allow Angular frontend
+                  .WithOrigins("https://localhost:4200"));  // Allow Angular frontend
 
 // Enable Authorization (if you are using authentication and authorization)
 app.UseAuthorization();
