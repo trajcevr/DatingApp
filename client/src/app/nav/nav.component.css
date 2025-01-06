@@ -1,0 +1,121 @@
+/* General Navbar Styling */
+.navbar {
+    background: linear-gradient(90deg, #1d3557, #457b9d); /* Gradient background */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 10px 20px;
+    font-family: 'Arial', sans-serif;
+}
+
+/* Navbar Brand Styling */
+.navbar-brand {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #f1faee;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    transition: color 0.3s ease;
+}
+
+.navbar-brand:hover {
+    color: #a8dadc;
+}
+
+/* Navbar Links */
+.nav-link {
+    font-size: 1.1rem;
+    color: #f1faee;
+    margin: 0 10px;
+    transition: color 0.3s ease, transform 0.2s ease;
+}
+
+.nav-link:hover {
+    color: #a8dadc;
+    transform: scale(1.1);
+}
+
+/* Dropdown Menu */
+.dropdown-menu {
+    background-color: #1d3557;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.dropdown-item {
+    color: #f1faee;
+    padding: 10px 20px;
+    font-size: 1rem;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.dropdown-item:hover {
+    background-color: #457b9d;
+    color: #a8dadc;
+}
+
+.dropdown-divider {
+    border-color: #a8dadc;
+}
+
+/* Form Styling */
+.form-control {
+    background: #f1faee;
+    border: 1px solid #457b9d;
+    border-radius: 20px;
+    padding: 10px 15px;
+    font-size: 1rem;
+    color: #1d3557;
+    transition: box-shadow 0.3s ease, transform 0.2s ease;
+}
+
+.form-control:focus {
+    box-shadow: 0 0 10px #a8dadc;
+    transform: scale(1.02);
+    outline: none;
+}
+
+.btn {
+    background-color: #457b9d;
+    color: #f1faee;
+    border: none;
+    border-radius: 20px;
+    padding: 10px 20px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn:hover {
+    background-color: #1d3557;
+    transform: scale(1.05);
+}
+
+/* Welcome User Dropdown */
+.dropdown-toggle {
+    font-size: 1rem;
+    color: #f1faee;
+    transition: color 0.3s ease;
+}
+
+.dropdown-toggle:hover {
+    color: #a8dadc;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .navbar-nav {
+        margin-top: 10px;
+    }
+
+    .form-inline {
+        flex-direction: column;
+    }
+
+    .form-control {
+        margin-bottom: 10px;
+        width: 100%;
+    }
+}
