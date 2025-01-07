@@ -1,0 +1,46 @@
+<div class="home">
+  <!-- Hero Section -->
+  <div class="hero">
+    <div class="container text-center">
+      <h1 class="display-4 animate__animated animate__fadeInDown">Find Your Perfect Match</h1>
+      <p class="lead animate__animated animate__fadeInUp">
+        Join the most vibrant community and start your journey of love today.
+      </p>
+      <button
+        class="btn btn-primary btn-lg animate__animated animate__pulse animate__infinite"
+        (click)="toggleRegisterForm()"
+      >
+        {{ showRegisterForm ? 'Close Registration' : 'Register Now' }}
+      </button>
+    </div>
+  </div>
+
+  <!-- Features Section -->
+  <div class="features">
+    <div class="container text-center">
+      <h2 class="mb-4">Why Choose Us?</h2>
+      <div class="row">
+        <div class="col-md-4">
+          <i class="fa fa-heart fa-3x text-primary"></i>
+          <h4>Connect With Singles</h4>
+          <p>Join millions of users who have found meaningful connections.</p>
+        </div>
+        <div class="col-md-4">
+          <i class="fa fa-comments fa-3x text-success"></i>
+          <h4>Engage in Conversations</h4>
+          <p>Break the ice and chat effortlessly with like-minded people.</p>
+        </div>
+        <div class="col-md-4">
+          <i class="fa fa-shield-alt fa-3x text-warning"></i>
+          <h4>Safe & Secure</h4>
+          <p>We prioritize your privacy and security in every interaction.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Registration Form Section -->
+  <div #registerFormContainer class="register-form-container" *ngIf="showRegisterForm">
+    <app-register (cancel)="showRegisterForm = false" ></app-register>
+  </div>
+</div>
