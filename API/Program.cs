@@ -1,4 +1,5 @@
 using API.Extensions;
+using API.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,6 +19,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+// Add ExceptionMiddleware to the pipeline
+app.UseMiddleware<ExceptionMiddleware>(); // Global exception handling middleware
 
 app.UseHttpsRedirection();
 
