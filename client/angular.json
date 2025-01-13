@@ -26,7 +26,8 @@
               "./node_modules/ngx-bootstrap/datepicker/bs-datepicker.css",
               "./node_modules/bootstrap/dist/css/bootstrap.min.css",
               "src/styles.css",
-              "node_modules/ngx-toastr/toastr.css"
+              "node_modules/ngx-toastr/toastr.css",
+              "node_modules/font-awesome/css/font-awesome.min.css"
             ],
             "scripts": []
           },
@@ -72,7 +73,7 @@
             "development": {
               "sslKey": "./ssl/server.key",
               "sslCert": "./ssl/server.crt",
-              "ssl":true,
+              "ssl": true,
               "browserTarget": "client:build:development"
             }
           },

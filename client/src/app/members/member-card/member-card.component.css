@@ -1,50 +1,58 @@
+/* Hide the icons by default */
+.card-img-wrapper .member-icons {
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+  position: absolute; /* To position it on top of the image */
+  top: 66%; /* Center the icons vertically */
+  left: 50%; /* Center the icons horizontally */
+  transform: translate(-50%, -50%); /* Center the icons */
+  display: flex;
+  flex-direction: row; /* Align icons horizontally */
+  justify-content: center; /* Center the icons horizontally */
+  align-items: center; /* Center the icons vertically */
+}
+
+/* Show the icons when hovering over the card */
+.card:hover .card-img-wrapper .member-icons {
+  opacity: 1;
+}
+
+/* Style the buttons for hover effect */
+.card .btn {
+  transition: transform 0.3s ease, background-color 0.3s ease;
+  width: 40px; /* Set fixed width */
+  height: 40px; /* Set fixed height */
+  padding: 0; /* Remove padding */
+  margin: 5px; /* Add space between buttons */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%; /* Make buttons round */
+}
+
+/* Add a hover effect on buttons */
+.card .btn:hover {
+  transform: scale(1.1);
+  background-color: #007bff;
+}
+
+/* Reduce space between image and text */
+.card-body {
+  padding-top: 10px; /* Reduce space above the text */
+  padding-bottom: 10px; /* Reduce space below the text */
+  text-align: center;
+}
+
+/* Optional: Ensure the card has a tighter layout */
 .card {
-    border-radius: 10px;
-    overflow: hidden;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-  
-  .card-img-top {
-    height: 200px;
-    object-fit: cover;
-  }
-  
-  .card-body {
-    text-align: left;
-    padding: 15px;
-  }
-  
-  .card-title {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: #343a40;
-  }
-  
-  .card-text {
-    font-size: 1rem;
-    color: #6c757d;
-    margin-bottom: 10px;
-  }
-  
-  .card-text strong {
-    color: #343a40;
-  }
-  
-  .card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
-  }
-  
-  .btn-primary {
-    background-color: #007bff;
-    border: none;
-  }
-  
-  .btn-primary:hover {
-    background-color: #0056b3;
-  }
-  
-  .card-body p {
-    margin-bottom: 8px;
-  }
-  
+  position: relative;
+  margin-bottom: 15px;
+}
+
+.card .card-body h6 {
+  margin-top: 5px; /* Remove excessive margin from the top of the title */
+}
+
+.card .card-body p {
+  margin-top: 5px; /* Remove excessive margin from the top of the city text */
+}

@@ -1,0 +1,100 @@
+/* Ensure the card is centered */
+.card-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Make the card vertically centered in the viewport */
+    margin: 0; /* Remove any default margins */
+}
+
+/* Styling the individual card */
+.card {
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    width: 100%;
+    max-width: 350px; /* Set a max width for the card */
+    background-color: #fff;
+}
+
+/* Card hover effect */
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Styling for card image */
+.card-img-top {
+    object-fit: cover;
+    height: 250px; /* Increase height for better visibility */
+    width: 100%;
+    border-bottom: 2px solid #ddd;
+}
+
+/* Card body styling */
+.card-body {
+    padding: 20px;
+    text-align: left;
+}
+
+/* Styling for title and info section */
+.card-body div {
+    margin-bottom: 15px;
+}
+
+.card-body strong {
+    color: #007bff;
+    font-size: 1.1rem;
+}
+
+.card-body p {
+    font-size: 1rem;
+    color: #666;
+    margin: 0;
+}
+
+/* Footer button group */
+.card-footer {
+    padding: 15px;
+    background-color: #f8f9fa;
+    border-top: 1px solid #ddd;
+    text-align: center;
+}
+
+/* Button styling */
+.card-footer .btn-group button {
+    width: 45%;
+    padding: 12px;
+    margin: 5px;
+    border: none;
+    border-radius: 50px;
+    font-size: 1rem;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+/* Add a hover effect on buttons */
+.card-footer .btn-group button:hover {
+    transform: translateY(-3px);
+}
+
+/* Like button */
+.card-footer .btn.primary {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.card-footer .btn.primary:hover {
+    background-color: #0056b3;
+}
+
+/* Message button */
+.card-footer .btn.success {
+    background-color: #28a745;
+    color: #fff;
+}
+
+.card-footer .btn.success:hover {
+    background-color: #218838;
+}
