@@ -1,0 +1,20 @@
+<div class="container mt-5">
+    <div class="row">
+        <div class="card shadow-sm border-0">
+            <img *ngIf="member.photoUrl" [src]="member.photoUrl" alt="{{ member.knownAs }}" class="card-img-top" />
+            <div class="card-body">
+                <h5 class="card-title">{{ member.knownAs }}</h5>
+                <p class="card-text"><strong>Username:</strong> {{ member.userName }}</p>
+                <p class="card-text"><strong>Age:</strong> {{ member.age }}</p>
+                <p class="card-text"><strong>Gender:</strong> {{ member.gender }}</p>
+                <p class="card-text"><strong>City:</strong> {{ member.city }}</p>
+                <p class="card-text"><strong>Country:</strong> {{ member.country }}</p>
+                <p class="card-text"><strong>Introduction:</strong> {{ member.introduction }}</p>
+                <p class="card-text"><strong>Looking For:</strong> {{ member.lookingFor }}</p>
+                <p class="card-text"><strong>Interests:</strong> {{ member.intrests }}</p>
+
+                <a href="#" class="btn btn-primary">View Profile</a>
+            </div>
+        </div>
+    </div>
+</div>
