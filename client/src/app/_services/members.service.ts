@@ -38,7 +38,7 @@ export class MembersService {
       return of(cachedMember); // Return the cached member as an observable
     }
     // Fetch member from the API if not cached
-    return this.http.get<Member>(this.baseUrl + 'users' + username);
+    return this.http.get<Member>(this.baseUrl + 'users/' + username);
     
   }
   
@@ -56,8 +56,14 @@ export class MembersService {
       })
     );
   }
+
+  setMainPhoto(photoId: number) {
+    return this.http.put(this.baseUrl + 'users/' + 'set-main-photo/ '+ photoId , {});
+  }
   
 
-
+  deletePhoto(photoId: number) {
+    return this.http.delete(this.baseUrl + 'users/delete-photo/' +photoId);
+  }
 
 }

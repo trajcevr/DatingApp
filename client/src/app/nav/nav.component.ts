@@ -17,7 +17,7 @@ export class NavComponent implements OnInit {
     private router: Router, private toastr: ToastrService) {}
 
   ngOnInit(): void {
-
+    
   }
 
   login() {
