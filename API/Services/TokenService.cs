@@ -23,7 +23,8 @@ namespace API.Services
             // Add claims for the token
             var claims = new List<Claim>
             {
-                new Claim(JwtRegisteredClaimNames.NameId, user.UserName)
+                new Claim(JwtRegisteredClaimNames.NameId, user.Id.ToString()),
+                new Claim(JwtRegisteredClaimNames.UniqueName, user.UserName),
             };
 
             // Use HMAC-SHA512 as the signing algorithm
