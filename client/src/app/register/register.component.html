@@ -1,36 +1,47 @@
 <div class="register-form-container">
   <div class="container py-5 position-relative">
-    
     <!-- Form Title -->
     <h2 class="text-center">Create Your Account</h2>
-    
+
     <!-- Form -->
-    <form (ngSubmit)="register()"> 
+    <form (ngSubmit)="register()" [formGroup]="registerForm">
+
       <div class="form-group">
-        <label for="username">Username</label>
-        <input
-          type="text"
-          name="username"
-          class="form-control"
-          [(ngModel)]="model.username"
-          placeholder="Enter your username"
-          required
-        />
-      </div>
-      <div class="form-group">
-        <label for="password">Password</label>
-        <input
-          type="password"
-          name="password"
-          class="form-control"
-          [(ngModel)]="model.password"
-          placeholder="Enter your password"
-          required
-        />
+        <label style="margin-right: 10px;" class="control-label">I am a: </label>
+        <label class="radio-inline">
+          <input type="radio" id="male" value="male" formControlName="gender"> Male
+        </label>
+        <label class="radio-inline ml-3">
+          <input type="radio" id="female" value="female" formControlName="gender"> Female
+        </label>
       </div>
 
-      <button type="submit" class="btn btn-success btn-block">Register</button>
-      <button type="submit" class="btn btn-success btn-block" (click)="closeForm()">Close</button>
+      <app-text-input [formControl]="$any(registerForm.controls['username'])" [label]="'Username'"></app-text-input>
+      <app-text-input [formControl]="$any(registerForm.controls['knownAs'])" [label]="'Known As'"></app-text-input>
+      <app-date-input [formControl]="$any(registerForm.controls['dateOfBirth'])" [label]="'Date of Birth'"
+        [maxDate]="maxDate"></app-date-input>
+      <app-text-input [formControl]="$any(registerForm.controls['city'])" [label]="'City'"></app-text-input>
+      <app-text-input [formControl]="$any(registerForm.controls['country'])" [label]="'Country'"></app-text-input>
+      <app-text-input [formControl]="$any(registerForm.controls['password'])" [label]="'Password'"
+        [type]="'password'"></app-text-input>
+      <app-text-input [formControl]="$any(registerForm.controls['confirmPassword'])" [label]="'Confirm Password'"
+        [type]="'password'"></app-text-input>
+
+      <div class="row" *ngIf="validationErrors.length > 0">
+        <ul class="text-danger">
+          <li *ngFor="let error of validationErrors">
+            {{error}}
+          </li>
+        </ul>
+      </div>
+      <!-- Buttons -->
+      <button type="submit" class="btn btn-success btn-block" [disabled]="!registerForm.valid" >Register</button>
+      <button type="button" class="btn btn-secondary btn-block" (click)="closeForm()">Close</button>
     </form>
   </div>
+</div>
+
+<div>
+  <h4>Form Values:</h4>
+<pre>{{ registerForm.value | json }}</pre>
 </div>
