@@ -9,19 +9,24 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class AccountService {
-
   baseUrl = environment.apiUrl;
-
   private currentUserSource = new ReplaySubject<User>(1);
   currentUser$ = this.currentUserSource.asObservable();
 
   constructor(private http: HttpClient) { }
+
+  // Add this method to get current user synchronously
+  getCurrentUser(): User {
+    const user = localStorage.getItem('user');
+    return user ? JSON.parse(user) : null;
+  }
 
   login(model: any) {
     return this.http.post(this.baseUrl + 'account/login', model).pipe(
       map((response: User) => {
         const user = response;
         if (user) {
+          localStorage.setItem('user', JSON.stringify(user)); // Add this line
           this.setCurrentUser(user);
         }
       })
@@ -30,8 +35,9 @@ export class AccountService {
 
   register(model: any) {
     return this.http.post(this.baseUrl + 'account/register', model).pipe(
-      map((user: User) =>{
+      map((user: User) => {
         if (user) {
+          localStorage.setItem('user', JSON.stringify(user)); // Add this line
           this.setCurrentUser(user);
         }
         return user;
@@ -39,7 +45,8 @@ export class AccountService {
     )
   }
   
-  setCurrentUser(user: User){
+  setCurrentUser(user: User) {
+    localStorage.setItem('user', JSON.stringify(user)); // Add this line
     this.currentUserSource.next(user);
   }
 
@@ -47,4 +54,4 @@ export class AccountService {
     localStorage.removeItem('user');
     this.currentUserSource.next(null);
   }
-} 
+}
