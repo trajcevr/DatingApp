@@ -26,6 +26,8 @@ namespace API.Entites
         public ICollection<Photo> Photos { get; set; }
         public ICollection<UserLike> LikedByUsers { get; set; } // Users koj sto go imaat lajknato najaveniot user
         public ICollection<UserLike> LikedUsers { get; set; } // Users koj sto se lajknati od najaveniot user
+        public ICollection<Message> MessagesSent { get; set; }
+        public ICollection<Message> MessagesRecived { get; set; }
 
     }
 }
