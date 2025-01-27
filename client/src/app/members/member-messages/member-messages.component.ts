@@ -21,9 +21,20 @@ export class MemberMessagesComponent implements OnInit {
   }
 
   sendMessage() {
-    this.messageService.sendMessage(this.username, this.messageContent).subscribe(message => {
-      this.messages.push(message);
-      this.messageForm.reset();
-    });
+  if (!this.messageForm || !this.username || !this.messageContent) {
+    console.error('Form, username, or message content is missing.');
+    return;
   }
+
+  this.messageService.sendMessage(this.username, this.messageContent).subscribe(
+    (message) => {
+      this.messages.push(message);
+      this.messageForm.reset(); // Reset the form only if the message is sent successfully
+    },
+    (error) => {
+      console.error('Error sending message:', error);
+    }
+  );
+}
+
 }

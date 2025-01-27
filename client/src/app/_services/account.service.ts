@@ -26,7 +26,7 @@ export class AccountService {
       map((response: User) => {
         const user = response;
         if (user) {
-          localStorage.setItem('user', JSON.stringify(user)); // Add this line
+          localStorage.setItem('user', JSON.stringify(user)); 
           this.setCurrentUser(user);
         }
       })
@@ -37,7 +37,7 @@ export class AccountService {
     return this.http.post(this.baseUrl + 'account/register', model).pipe(
       map((user: User) => {
         if (user) {
-          localStorage.setItem('user', JSON.stringify(user)); // Add this line
+          localStorage.setItem('user', JSON.stringify(user)); 
           this.setCurrentUser(user);
         }
         return user;
@@ -46,12 +46,32 @@ export class AccountService {
   }
   
   setCurrentUser(user: User) {
-    localStorage.setItem('user', JSON.stringify(user)); // Add this line
+    if (!user) {
+      console.error('User is null or undefined');
+      return;
+    }
+  
+    user.roles = [];
+    const roles = this.getDecodedToken(user.token).role;
+  
+    if (Array.isArray(roles)) {
+      user.roles = roles;
+    } else {
+      user.roles.push(roles);
+    }
+  
+    localStorage.setItem('user', JSON.stringify(user));
     this.currentUserSource.next(user);
   }
+  
 
   logout() {
     localStorage.removeItem('user');
     this.currentUserSource.next(null);
+  }
+
+  getDecodedToken(token) {
+    return JSON.parse(atob(token.split('.')[1]));
+
   }
 }

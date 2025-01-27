@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { getPaginatedResult, getPaginationHeaders } from './paginationHelper';
 import { Message } from '../_models/message';
+import { throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -23,8 +25,19 @@ export class MessageService {
   }
 
   sendMessage(username: string, content: string) {
-    return this.http.post<Message>(this.baseUrl + "messages", {recipientUsername: username, content})
+    if (!username || !content) {
+      console.error('Invalid username or content:', { username, content });
+      return throwError(() => new Error('Recipient username or content is missing.'));
+    }
+  
+    return this.http.post<Message>(this.baseUrl + "messages", { recipientUsername: username, content }).pipe(
+      catchError((error) => {
+        console.error('Error sending message:', error);
+        return throwError(() => error);
+      })
+    );
   }
+  
 
   deleteMessage(id: number) {
     return this.http.delete(this.baseUrl + "messages/" + id);

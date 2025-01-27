@@ -55,21 +55,24 @@ export class MemberDetailComponent implements OnInit {
 
   // Method to get images for the gallery
   getImages(): NgxGalleryImage[] {
-    if (!this.member || !this.member.photos) {
-      console.warn('No photos available');
-      return [];
+    if (!this.member || !this.member.photos || this.member.photos.length === 0) {
+      console.warn('No photos available, using default image.');
+      return [{
+        small: './assets/default-image.png',
+        medium: './assets/default-image.png',
+        big: './assets/default-image.png'
+      }];
     }
-
-    const imageUrls = [];
-    for (const photo of this.member.photos) {
-      imageUrls.push({
-        small: photo?.url,
-        medium: photo?.url,
-        big: photo?.url
-      });
-    }
+  
+    const imageUrls = this.member.photos.map(photo => ({
+      small: photo?.url ? photo.url : './assets/default-image.png',
+      medium: photo?.url ? photo.url : './assets/default-image.png',
+      big: photo?.url ? photo.url : './assets/default-image.png'
+    }));
+  
     return imageUrls;
   }
+  
 
   // Method to load messages
   loadMessages() {

@@ -2,6 +2,9 @@ using API.Extensions;
 using API.Middleware;
 using API.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
+using API.Entites;
+using API.Entities;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -31,6 +34,8 @@ app.UseCors(x => x.AllowAnyHeader()
                   .AllowAnyMethod()
                   .WithOrigins("https://localhost:4200")); // Allow Angular frontend
 
+app.UseCors("AllowFrontend");
+
 app.UseAuthentication(); // Enable authentication
 app.UseAuthorization();  // Enable authorization
 
@@ -41,8 +46,10 @@ var services = scope.ServiceProvider;
 try
 {
     var context = services.GetRequiredService<DataContext>();
+    var userManager = services.GetRequiredService<UserManager<AppUser>>();
+    var roleManager = services.GetRequiredService<RoleManager<AppRole>>();
     await context.Database.MigrateAsync(); // Apply migrations
-    await Seed.SeedUsers(context); // Seed the database
+    await Seed.SeedUsers(userManager, roleManager); // Seed the database
 }
 catch (Exception ex)
 {
