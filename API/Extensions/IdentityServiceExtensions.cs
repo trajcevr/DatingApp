@@ -1,3 +1,4 @@
+
 using API.Data;
 using API.Entites;
 using API.Entities;
@@ -35,6 +36,23 @@ namespace API.Extensions
                         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["TokenKey"])),
                         ValidateIssuer = false, // Not validating issuer
                         ValidateAudience = false // Not validating audience
+                    };
+
+                    options.Events = new JwtBearerEvents
+                    {
+                        OnMessageReceived = context => 
+                        {
+                            var accesToken = context.Request.Query["access_token"];
+
+                            var path = context.HttpContext.Request.Path;
+
+                            if (!string.IsNullOrEmpty(accesToken) && path.StartsWithSegments("/hubs"))
+                            {
+                                context.Token = accesToken;
+                            }
+
+                            return Task.CompletedTask;
+                        }
                     };
                 });
 

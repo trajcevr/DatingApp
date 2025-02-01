@@ -17,6 +17,11 @@ namespace API.Services
 
         public PhotoService(IOptions<CloudinarySettings> config)
         {
+            var cloudinarySettings = config.Value;
+            
+            Console.WriteLine($"CloudName: {cloudinarySettings.CloudName}");
+            Console.WriteLine($"ApiKey: {cloudinarySettings.ApiKey}");
+            Console.WriteLine($"ApiSecret: {cloudinarySettings.ApiSecret}");
             var acc = new Account
             (
                 config.Value.CloudName,

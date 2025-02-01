@@ -1,3 +1,4 @@
+
 using API.Extensions;
 using API.Middleware;
 using API.Data;
@@ -5,15 +6,17 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using API.Entites;
 using API.Entities;
+using API.SignalR;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllers();
 builder.Services.AddApplicationServices(builder.Configuration); // Add general application services
+builder.Services.AddSignalR();
 builder.Services.AddIdentityServices(builder.Configuration); // Add authentication/identity services
 
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+// Swagger/OpenAPI configuration
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -30,11 +33,11 @@ app.UseMiddleware<ExceptionMiddleware>(); // Global exception handling middlewar
 
 app.UseHttpsRedirection();
 
+// CORS configuration (ensure this is the only CORS configuration)
 app.UseCors(x => x.AllowAnyHeader()
                   .AllowAnyMethod()
+                  .AllowCredentials()
                   .WithOrigins("https://localhost:4200")); // Allow Angular frontend
-
-app.UseCors("AllowFrontend");
 
 app.UseAuthentication(); // Enable authentication
 app.UseAuthorization();  // Enable authorization
@@ -50,6 +53,8 @@ try
     var roleManager = services.GetRequiredService<RoleManager<AppRole>>();
     await context.Database.MigrateAsync(); // Apply migrations
     await Seed.SeedUsers(userManager, roleManager); // Seed the database
+    var logger = services.GetRequiredService<ILogger<Program>>();
+    logger.LogInformation("Migration and seeding completed successfully.");
 }
 catch (Exception ex)
 {
@@ -58,5 +63,6 @@ catch (Exception ex)
 }
 
 app.MapControllers();
-
+app.MapHub<PresenceHub>("hubs/presence");
+app.MapHub<MessageHub>("hubs/message");
 app.Run();

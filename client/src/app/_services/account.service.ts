@@ -4,6 +4,7 @@ import { map } from 'rxjs/operators';
 import { User } from '../_models/user';
 import { ReplaySubject } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { PresenceService } from './presence.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,7 @@ export class AccountService {
   private currentUserSource = new ReplaySubject<User>(1);
   currentUser$ = this.currentUserSource.asObservable();
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private presence: PresenceService) { }
 
   // Add this method to get current user synchronously
   getCurrentUser(): User {
@@ -28,6 +29,7 @@ export class AccountService {
         if (user) {
           localStorage.setItem('user', JSON.stringify(user)); 
           this.setCurrentUser(user);
+          this.presence.createHubConnection(user);
         }
       })
     )
@@ -39,6 +41,7 @@ export class AccountService {
         if (user) {
           localStorage.setItem('user', JSON.stringify(user)); 
           this.setCurrentUser(user);
+          this.presence.createHubConnection(user);
         }
         return user;
       })
@@ -64,14 +67,14 @@ export class AccountService {
     this.currentUserSource.next(user);
   }
   
-
   logout() {
     localStorage.removeItem('user');
     this.currentUserSource.next(null);
+    this.presence.stopHubConnection();
+
   }
 
   getDecodedToken(token) {
     return JSON.parse(atob(token.split('.')[1]));
-
   }
 }
