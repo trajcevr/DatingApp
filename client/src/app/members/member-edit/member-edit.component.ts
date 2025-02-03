@@ -35,17 +35,31 @@ export class MemberEditComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.loadMember();
+    this.accountService.currentUser$.pipe(take(1)).subscribe(user => {
+      if (user) {
+        this.user = user;
+        this.loadMember();
+      } else {
+        console.error("User not found!");
+      }
+    });
   }
+  
 
   loadMember() {
-    this.memberService.getMember(this.user.username).subscribe(member => {
+    if (!this.user || !this.user.userName) {
+      console.error("Cannot load member, username is undefined.");
+      return;
+    }
+  
+    this.memberService.getMember(this.user.userName).subscribe(member => {
       console.log('Loaded member:', member);
       this.member = member;
     }, error => {
       console.error('Error loading member:', error);
     });
   }
+  
 
   updateMember() {
     this.memberService.updateMember(this.member).subscribe(() => {

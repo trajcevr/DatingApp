@@ -31,7 +31,7 @@ export class UserManagmentComponent implements OnInit {
   openRolesModal(user: User): void {
     console.log('Full user object:', user);
     console.log('User object keys:', Object.keys(user));
-    console.log('Attempting to access userName:', user.username);
+    console.log('Attempting to access userName:', user.userName);
 
     const config = {
       initialState: {
@@ -45,7 +45,7 @@ export class UserManagmentComponent implements OnInit {
       const rolesToUpdate = roles.filter(r => r.checked).map(r => r.name);
 
       if (rolesToUpdate.length > 0) {
-        this.adminService.updateUserRoles(user.username, rolesToUpdate).subscribe({
+        this.adminService.updateUserRoles(user.userName, rolesToUpdate).subscribe({
           next: () => user.roles = rolesToUpdate,
           error: (err) => console.error('Role update error:', err)
         });

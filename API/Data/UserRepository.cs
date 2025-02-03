@@ -27,7 +27,7 @@ namespace API.Data
         {
             var user = await _context.Users
                .Where(u => u.UserName == username)
-               .ProjectTo<MemberDto>(_mapper.ConfigurationProvider) // AutoMap to MemberDto
+               .ProjectTo<MemberDto>(_mapper.ConfigurationProvider) 
                .SingleOrDefaultAsync();
 
             return user;
@@ -38,13 +38,11 @@ namespace API.Data
         {
             var query = _context.Users.AsQueryable();
 
-            // Exclude the logged-in user
             if (!string.IsNullOrEmpty(userParams.CurrentUsername))
             {
                 query = query.Where(user => user.UserName != userParams.CurrentUsername);
             }
 
-            // Filter by gender
             if (!string.IsNullOrEmpty(userParams.Gender))
             {
                 query = query.Where(user => user.Gender == userParams.Gender);
@@ -78,26 +76,18 @@ namespace API.Data
         public async Task<AppUser> GetUserByUsernameAsync(string username)
         {
             return await _context.Users
-                .Include(u => u.Photos) // Include related data if needed
+                .Include(u => u.Photos) 
                 .SingleOrDefaultAsync(u => u.UserName == username);
         }
 
         public async Task<IEnumerable<AppUser>> GetUsersAsync()
         {
             return await _context.Users
-                .Include(u => u.Photos) // Include related data if needed
+                .Include(u => u.Photos) 
                 .ToListAsync();
         }
-
-        public async Task<bool> SaveAllAsync()
-        {
-            // Save changes and return true if at least one record is affected
-            return await _context.SaveChangesAsync() > 0;
-        }
-
         public void Update(AppUser user)
         {
-            // Mark the user entity as modified
             _context.Entry(user).State = EntityState.Modified;
         }
     }
